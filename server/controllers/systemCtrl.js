@@ -3,7 +3,6 @@
 const packageFile = require('../../package.json')
 const config = require('../configuration').server
 const getPaths = require('kth-node-express-routing').getPaths
-const db = require('kth-node-mongo')
 
 const Promise = require('bluebird')
 const registry = require('component-registry').globalRegistry
@@ -50,6 +49,8 @@ function getAbout (req, res) {
  * Monitor page
  */
 function getMonitor (req, res) {
+  res.type('text').status(status.statusCode).send('hi!')
+  return
   // Check MongoDB
   const mongodbHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-mongodb')
   const subSystems = [mongodbHealthUtil.status(db, { required: true })]
@@ -96,7 +97,6 @@ function getRobotsTxt (req, res) {
 function getPathsHandler (req, res) {
   res.json(getPaths())
 }
-
 
 function checkAPIKey (req, res) {
   res.end()
