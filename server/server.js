@@ -18,7 +18,7 @@ const systemRoutes = require('./systemroutes')
 server.use('/lms-api/', systemRoutes)
 server.use('/lms-api/api/', api)
 
-log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
-require('../simpleCache').courses
+// log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
+// require('../simpleCache').courses
 
 module.exports = server
