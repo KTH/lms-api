@@ -69,12 +69,6 @@ APPLICATION_STATUS: OK
   `)
 }
 
-var _index = function (req, res) {
-  return res.render('index', {
-    layout: 'publicLayout',
-    debug: 'debug' in req.query
-  })
-}
 
 router.get('/_monitor', _monitor)
 router.get('/_monitor_all', _monitor)
@@ -86,6 +80,5 @@ APPLICATION_STATUS: OK
 }
 )
 // router.get('/_about', _about)
-// router.get('/', _index)
 
 module.exports = router

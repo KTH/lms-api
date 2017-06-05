@@ -16,6 +16,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "human-interval": "^0.1.6",
     "kth-canvas-api": "^0.7.2",
     "kth-node-api-common": "^0.1.5",
     "kth-node-configuration": "^1.4.5",
