@@ -1,5 +1,7 @@
 'use strict'
 const server = require('kth-node-server')
+const log = require('kth-node-log')
+
 const api = require('./api')
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
@@ -15,5 +17,8 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 const systemRoutes = require('./systemroutes')
 server.use('/lms-api/', systemRoutes)
 server.use('/lms-api/api/', api)
+
+log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
+require('../simpleCache').courses
 
 module.exports = server

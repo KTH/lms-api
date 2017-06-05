@@ -1,10 +1,10 @@
 /**
  * Created by elenara on 01/07/16.
  */
-const config = require('./server/configuration')
 const CanvasApi = require('kth-canvas-api')
+const log = require('kth-node-log')
 
-const canvasApi = new CanvasApi(config.server.canvas.apiUrl, process.env.CANVAS_API_KEY)
+const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
 const humanInterval = require('human-interval')
 
 const coursesMap = new Map()
@@ -16,6 +16,7 @@ function cacheCourses () {
     courses.filter(course => course.sis_course_id).forEach(course => coursesMap.set(course.sis_course_id, course))
     return coursesMap
   })
+  .catch(e => log.error(e))
 }
 
 let cachedCourses

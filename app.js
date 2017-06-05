@@ -1,6 +1,12 @@
 'use strict'
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
+
+const log = require('kth-node-log')
+log.init({
+  name: 'lms-api'
+})
+
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   console.log('use .env file')
   require('dotenv').config()
@@ -13,8 +19,7 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 
 const config = require('./server/configuration').server
 const server = require('./server/server')
-const log = require('kth-node-log')
-log.init()
+
 /* ****************************
  * ******* SERVER START *******
  * ****************************
