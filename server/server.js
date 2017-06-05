@@ -18,11 +18,11 @@ const systemRoutes = require('./systemroutes')
 server.use('/lms-api/', systemRoutes)
 server.use('/lms-api/api/', api)
 
-log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
-
 async function preloadCache(){
+  log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
   await require('../simpleCache').courses
   log.info('courses is preloaded')
 }
 preloadCache()
+
 module.exports = server
