@@ -65,7 +65,7 @@ const router = express.Router()
  */
 var _monitor = function (req, res) {
   res.send(`
-APPLICATION_STATUS: QK
+APPLICATION_STATUS: OK
   `)
 }
 

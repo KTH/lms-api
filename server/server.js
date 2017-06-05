@@ -14,7 +14,7 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 }
 
 const systemRoutes = require('./systemroutes')
-server.use('lms-api/', systemRoutes)
+server.use('/lms-api/', systemRoutes)
 
 // Now read the server config etc.
 const config = require('./configuration').server
