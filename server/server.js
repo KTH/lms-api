@@ -14,6 +14,6 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 
 const systemRoutes = require('./systemroutes')
 server.use('/lms-api/', systemRoutes)
-server.use('/lms-api/api', api)
+server.use('/lms-api/api/', api)
 
 module.exports = server
