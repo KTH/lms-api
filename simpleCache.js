@@ -4,9 +4,7 @@
 const config = require('./server/configuration')
 const CanvasApi = require('kth-canvas-api')
 
-console.log(JSON.stringify(config, null, 4))
-
-const canvasApi = new CanvasApi(config.server.canvas.apiUrl, config.server.canvas.apiKey)
+const canvasApi = new CanvasApi(config.server.canvas.apiUrl, process.env.CANVAS_API_KEY)
 const humanInterval = require('human-interval')
 
 const coursesMap = new Map()
