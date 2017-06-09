@@ -1,8 +1,9 @@
 'use strict'
 const server = require('kth-node-server')
 const log = require('kth-node-log')
-
 const api = require('./api')
+const systemRoutes = require('./systemroutes')
+
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
@@ -14,7 +15,6 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   require('../config/localSettings')
 }
 
-const systemRoutes = require('./systemroutes')
 server.use('/lms-api/', systemRoutes)
 server.use('/lms-api/api/', api)
 
