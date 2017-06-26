@@ -1,15 +1,9 @@
-FROM kthse/kth-nodejs-api:2.3
+FROM node:8.1-wheezy
 
 MAINTAINER KTH Webb "cortina.developers@kth.se"
 
 RUN mkdir -p /npm && \
     mkdir -p /application
-
-RUN apk add bash
-RUN npm cache clean -f
-RUN npm install -g n
-RUN n --version
-RUN n latest
 
 # We do this to avoid npm install when we're only changing code
 WORKDIR /npm
