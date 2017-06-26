@@ -20,6 +20,7 @@ COPY ["config", "config"]
 COPY ["package.json", "package.json"]
 
 # Copy source files, so changes does not trigger gulp.
+COPY ["simpleCache.js", "simpleCache.js"]
 COPY ["app.js", "app.js"]
 COPY ["swagger.json", "swagger.json"]
 COPY ["server", "server"]
