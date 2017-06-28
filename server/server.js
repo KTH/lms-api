@@ -15,8 +15,8 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   require('../config/localSettings')
 }
 
-server.use('/lms-api/', systemRoutes)
-server.use('/lms-api/api/', api)
+server.use('/api/lms-api/', systemRoutes)
+server.use('/api/lms-api/api/', api)
 
 async function preloadCache(){
   log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
