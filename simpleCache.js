@@ -16,7 +16,6 @@ function cacheCourses () {
     courses.filter(course => course.sis_course_id).forEach(course => coursesMap.set(course.sis_course_id, course))
     return coursesMap
   })
-  .catch(e => log.error(e))
 }
 
 let cachedCourses

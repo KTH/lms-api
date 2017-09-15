@@ -20,8 +20,12 @@ server.use('/api/lms-api/api/', api)
 
 async function preloadCache(){
   log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
-  await require('../simpleCache').courses
-  log.info('courses is preloaded')
+  try {
+    await require('../simpleCache').courses
+    log.info('courses is preloaded')
+  } catch (e) {
+    log.error(e)
+  }
 }
 preloadCache()
 
