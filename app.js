@@ -20,10 +20,6 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 const config = require('./server/configuration').server
 const server = require('./server/server')
 
-/* ****************************
- * ******* SERVER START *******
- * ****************************
- */
 module.exports = server.start({
   useSsl: config.useSsl,
   port: config.port,
