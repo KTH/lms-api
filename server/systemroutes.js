@@ -27,12 +27,10 @@ function _about (req, res) {
 async function status () {
   let canvasOk
   try {
-    const checkCanvasStatus = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
-      .then(JSON.parse)
-      .then(({status}) => status.indicator === 'none')
-    let readAccountInCanvas = await canvasApi.getRootAccount()
-    const {status} = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
-    canvasOk = status.indicator === 'none'
+    const checkCanvasStatusTxt = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
+    const checkCanvasStatus = JSON.parse(checkCanvasStatusTxt)
+
+    canvasOk = checkCanvasStatus.status.indicator === 'none'
   } catch (e) {
     log.info('An error occured:', e)
     canvasOk = false
