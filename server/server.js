@@ -24,7 +24,7 @@ async function preloadCache(){
     await require('../simpleCache').courses
     log.info('courses is preloaded')
   } catch (e) {
-    log.error(e)
+    log.error('An error occured.',e)
   }
 }
 preloadCache()

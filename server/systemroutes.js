@@ -8,8 +8,9 @@ const version = require('../config/version')
 const packageFile = require('../package.json')
 const CanvasApi = require('kth-canvas-api')
 const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
+const log = require('kth-node-log')
 
-function _about(req, res) {
+function _about (req, res) {
   res.setHeader('Content-Type', 'text/plain')
   res.send(`
     packageFile.name:${packageFile.name}
@@ -23,38 +24,43 @@ function _about(req, res) {
     version.jenkinsBuildDate:${version.jenkinsBuildDate}`)
 }
 
-function status () {
-  let canvasOk, canvasKeyOk
+async function status () {
+  let canvasOk
+  try {
+    const checkCanvasStatus = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
+      .then(JSON.parse)
+      .then(({status}) => status.indicator === 'none')
+    let readAccountInCanvas = await canvasApi.getRootAccount()
+    const {status} = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
+    canvasOk = status.indicator === 'none'
+  } catch (e) {
+    log.info('An error occured:', e)
+    canvasOk = false
+  }
 
-  const checkCanvasStatus = rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
-    .then(JSON.parse)
-    .then(({status}) => status.indicator === 'none')
-
-  let readAccountInCanvas = canvasApi.getRootAccount()
-
-  return checkCanvasStatus
-    .then(_canvasOk => canvasOk = _canvasOk)
-    .catch(e => canvasOk = false)
-    .then(() => readAccountInCanvas)
-    .then(keyOk => canvasKeyOk = keyOk)
-    .catch(e => canvasKeyOk = false)
-    .then(() => {
-      return {canvasOk, canvasKeyOk}
-    })
+  let canvasKeyOk
+  try {
+    await canvasApi.getRootAccount()
+    canvasKeyOk = true
+  } catch (e) {
+    log.info('An error occured:', e)
+    canvasKeyOk = false
+  }
+  return {canvasOk, canvasKeyOk}
 }
 
-function _monitor (req, res) {
-  status().then(({canvasOk, ugOk, canvasKeyOk}) => {
-    console.log('status: ', canvasOk, ugOk, canvasKeyOk)
-    res.setHeader('Content-Type', 'text/plain')
+async function _monitor (req, res) {
+  const {canvasOk, canvasKeyOk} = await status()
 
-    res.send(`
+  res.setHeader('Content-Type', 'text/plain')
+  const statusStr = `
 CANVAS: ${canvasOk ? 'OK' : 'ERROR'}
 CANVASKEY: ${canvasKeyOk ? 'OK' : 'ERROR'}
 
 APPLICATION_STATUS: ${canvasOk ? 'OK' : 'ERROR'}
-    `)
-  })
+    `
+  log.info('Showing status page:')
+  res.send(statusStr)
 }
 
 router.get('/_monitor', _monitor)

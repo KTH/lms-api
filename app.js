@@ -8,7 +8,6 @@ log.init({
 })
 
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
-  console.log('use .env file')
   require('dotenv').config()
 } else if (!process.env.SERVICE_PUBLISH) {
   // This is an ANSIBLE machine which doesn't set env-vars atm
