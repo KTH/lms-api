@@ -1,4 +1,5 @@
 const simpleCache = require('../../simpleCache')
+const log = require('kth-node-log')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)
@@ -21,11 +22,17 @@ module.exports = {
       } else {
         res.json(result)
       }
-    }).catch(e => res.status(500).send('Internal server error!'))
+    }).catch(e => {
+      log.error('An error occured:', e)
+      res.status(500).send('Internal server error!')
+    })
   },
   allCourses(req, res) {
     simpleCache.courses.then(coursesMap => {
       res.json(strMapToObj(coursesMap))
-    }).catch(e => res.status(500).send('Internal server error!'))
+    }).catch(e => {
+      log.error('An error occured:', e)
+      res.status(500).send('Internal server error!')
+    })
   }
 }
