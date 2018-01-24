@@ -25,7 +25,7 @@ function _about (req, res) {
 }
 
 async function status () {
-  let canvasOk
+  let canvasOk, fetchCanvasCourseOk
   try {
     const checkCanvasStatusTxt = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
     const checkCanvasStatus = JSON.parse(checkCanvasStatusTxt)
@@ -36,6 +36,15 @@ async function status () {
     canvasOk = false
   }
 
+  try {
+    const checkCourseInCanvas = await canvasApi.getCourse('LMSAPIMONITOR')
+
+    fetchCanvasCourseOk = checkCourseInCanvas.course_code === 'LMS-API-MONITOR-TEST-COURSE'
+  } catch (e) {
+    log.info('An error occured while calling course(course_code:LMS-API-MONITOR-TEST-COURSE) via canvas api:', e)
+    fetchCanvasCourseOk = false
+  }
+
   let canvasKeyOk
   try {
     await canvasApi.getRootAccount()
@@ -44,18 +53,19 @@ async function status () {
     log.info('An error occured:', e)
     canvasKeyOk = false
   }
-  return {canvasOk, canvasKeyOk}
+  return {canvasOk, fetchCanvasCourseOk, canvasKeyOk}
 }
 
 async function _monitor (req, res) {
-  const {canvasOk, canvasKeyOk} = await status()
+  const {canvasOk, fetchCanvasCourseOk, canvasKeyOk} = await status()
 
   res.setHeader('Content-Type', 'text/plain')
   const statusStr = `
 CANVAS: ${canvasOk ? 'OK' : 'ERROR'}
+FETCH A TEST COURSE(LMS-API-MONITOR-TEST-COURSE) FROM CANVAS: ${fetchCanvasCourseOk ? 'OK' : 'ERROR (check if a course exists in Canvas)'}
 CANVASKEY: ${canvasKeyOk ? 'OK' : 'ERROR'}
 
-APPLICATION_STATUS: ${canvasOk ? 'OK' : 'ERROR'}
+APPLICATION_STATUS: ${fetchCanvasCourseOk ? 'OK' : 'ERROR'}
     `
   log.info('Showing status page:')
   res.send(statusStr)
