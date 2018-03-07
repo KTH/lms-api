@@ -1,5 +1,5 @@
 const simpleCache = require('../../simpleCache')
-const log = require('kth-node-log')
+const log = require('../../logger')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)

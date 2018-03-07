@@ -10,15 +10,13 @@
     "start": "cross-env NODE_ENV=development nodemon app.js"
   },
   "dependencies": {
+    "bunyan": "^1.8.12",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "human-interval": "^0.1.6",
     "kth-canvas-api": "^0.7.2",
     "kth-node-api-common": "^0.1.5",
     "kth-node-configuration": "^1.4.5",
-    "kth-node-express-routing": "^0.3.1",
-    "kth-node-log": "^2.0.3",
-    "kth-node-monitor": "^0.1.5",
     "kth-node-server": "^3.0.3"
   },
   "devDependencies": {
