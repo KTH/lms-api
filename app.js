@@ -16,7 +16,8 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   require('./config/localSettings')
 }
 
-const config = require('./server/configuration').server
+const config = require('./config/serverSettings')
+
 const server = require('./server/server')
 
 module.exports = server.start({
