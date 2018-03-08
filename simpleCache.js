@@ -24,11 +24,12 @@ let cachedCourses
 Refresh cache periodically
 */
 
-setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
-
 module.exports = {
-  get courses(){
-    if(!cachedCourses){
+  start(){
+      setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
+  },
+  get courses () {
+    if (!cachedCourses) {
       cachedCourses = cacheCourses()
     }
     return cachedCourses

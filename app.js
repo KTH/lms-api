@@ -12,6 +12,7 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
 }
 
 const config = require('./config/serverSettings')
+require('./simpleCache').start()
 
 const server = require('./server/server')
 

@@ -10,7 +10,7 @@ function strMapToObj (strMap) {
 }
 
 module.exports = {
-  course(req, res) {
+  course (req, res) {
     simpleCache.courses.then(coursesMap => {
       const courses = []
       for (let [k, v] of coursesMap) {
@@ -27,7 +27,7 @@ module.exports = {
       res.status(500).send('Internal server error!')
     })
   },
-  allCourses(req, res) {
+  allCourses (req, res) {
     simpleCache.courses.then(coursesMap => {
       res.json(strMapToObj(coursesMap))
     }).catch(e => {
