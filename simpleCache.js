@@ -2,7 +2,7 @@
  * Created by elenara on 01/07/16.
  */
 const CanvasApi = require('kth-canvas-api')
-const log = require('kth-node-log')
+const log = require('./logger')
 
 const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
 const humanInterval = require('human-interval')
@@ -24,11 +24,12 @@ let cachedCourses
 Refresh cache periodically
 */
 
-setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
-
 module.exports = {
-  get courses(){
-    if(!cachedCourses){
+  start(){
+      setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
+  },
+  get courses () {
+    if (!cachedCourses) {
       cachedCourses = cacheCourses()
     }
     return cachedCourses

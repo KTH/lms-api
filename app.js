@@ -1,12 +1,7 @@
 'use strict'
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
-
-const log = require('kth-node-log')
-log.init({
-  name: 'lms-api'
-})
-
+const logger = require('./logger')
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   require('dotenv').config()
 } else if (!process.env.SERVICE_PUBLISH) {
@@ -16,11 +11,13 @@ if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
   require('./config/localSettings')
 }
 
-const config = require('./server/configuration').server
+const config = require('./config/serverSettings')
+require('./simpleCache').start()
+
 const server = require('./server/server')
 
 module.exports = server.start({
   useSsl: config.useSsl,
   port: config.port,
-  logger: log
+  logger
 })

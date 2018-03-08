@@ -1,14 +1,14 @@
 
 const express = require('express')
 const router = express.Router()
-const config = require('./configuration')
+const config = require('../config/serverSettings')
 const rp = require('request-promise')
 
 const version = require('../config/version')
 const packageFile = require('../package.json')
 const CanvasApi = require('kth-canvas-api')
 const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
-const log = require('kth-node-log')
+const log = require('../logger')
 
 function _about (req, res) {
   res.setHeader('Content-Type', 'text/plain')
@@ -24,7 +24,7 @@ function _about (req, res) {
     version.jenkinsBuildDate:${version.jenkinsBuildDate}`)
 }
 
-async function checkCanvasKey(){
+async function checkCanvasKey () {
   let result
   try {
     await canvasApi.getRootAccount()
@@ -36,8 +36,7 @@ async function checkCanvasKey(){
   return result
 }
 
-
-async function checkCanvasStatus(){
+async function checkCanvasStatus () {
   let result
   try {
     const checkCanvasStatusTxt = await rp('http://nlxv32btr6v7.statuspage.io/api/v2/status.json')
@@ -58,9 +57,9 @@ async function _monitor (req, res) {
   const statusStr = `
 CANVASKEY: ${canvasKeyOk ? 'OK' : 'ERROR'}
 
-APPLICATION_STATUS: ${ canvasKeyOk ? 'OK' : 'ERROR'}
+APPLICATION_STATUS: ${canvasKeyOk ? 'OK' : 'ERROR'}
     `
-    log.info('Showing _monitor page:', statusStr)
+  log.info('Showing _monitor page:', statusStr)
   res.send(statusStr)
 }
 
@@ -73,7 +72,7 @@ async function _monitorAll (req, res) {
 CANVAS: ${canvasOk ? 'OK' : 'ERROR'}
 CANVASKEY: ${canvasKeyOk ? 'OK' : 'ERROR'}
 
-APPLICATION_STATUS: ${ (canvasKeyOk && canvasOk)? 'OK' : 'ERROR'}
+APPLICATION_STATUS: ${(canvasKeyOk && canvasOk) ? 'OK' : 'ERROR'}
     `
   log.info('Showing _monitor_all page:', statusStr)
   res.send(statusStr)
