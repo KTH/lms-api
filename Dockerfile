@@ -14,6 +14,7 @@ COPY ["simpleCache.js", "simpleCache.js"]
 COPY ["app.js", "app.js"]
 COPY ["swagger.json", "swagger.json"]
 COPY ["server", "server"]
+COPY ["logger.js", "logger.js"]
 
 EXPOSE 3001
 
