@@ -10,8 +10,10 @@ function strMapToObj (strMap) {
 }
 
 module.exports = {
-  course (req, res) {
-    simpleCache.courses.then(coursesMap => {
+  async course (req, res) {
+
+    try {
+      const coursesMap = await simpleCache.courses
       const courses = []
       for (let [k, v] of coursesMap) {
         courses.push(v)
@@ -22,17 +24,18 @@ module.exports = {
       } else {
         res.json(result)
       }
-    }).catch(e => {
+    } catch (e) {
       log.error('An error occured:', e)
       res.status(500).send('Internal server error!')
-    })
+    }
   },
-  allCourses (req, res) {
-    simpleCache.courses.then(coursesMap => {
+  async allCourses (req, res) {
+    try {
+      const coursesMap = await simpleCache.courses
       res.json(strMapToObj(coursesMap))
-    }).catch(e => {
+    } catch (e) {
       log.error('An error occured:', e)
       res.status(500).send('Internal server error!')
-    })
+    }
   }
 }
