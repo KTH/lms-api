@@ -23,3 +23,13 @@ test('strMapToObj should return an empty object if the map is null', async t =>{
   t.end()
 })
 
+test('allCourses should return the cached courses', async t =>{
+  const req = sinon.spy()
+  const res = {json:sinon.stub()}
+  course.__set__('simpleCache', {})
+
+  await course.allCourses(req, res)
+  t.equal(res.json.callCount, 1)
+  t.end()
+})
+
