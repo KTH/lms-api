@@ -23,13 +23,15 @@ test('strMapToObj should return an empty object if the map is null', async t =>{
   t.end()
 })
 
-test('allCourses should return the cached courses', async t =>{
-  const req = sinon.spy()
+test('allCourses should render the cached courses', async t =>{
   const res = {json:sinon.stub()}
-  course.__set__('simpleCache', {})
 
-  await course.allCourses(req, res)
-  t.equal(res.json.callCount, 1)
+  course.__set__('simpleCache', {courses: Promise.resolve(new Map([
+    ['SF1624', {}]
+  ]))})
+
+  await course.allCourses(null, res)
+  t.ok(res.json.calledWith({'SF1624':{}}))
   t.end()
 })
 

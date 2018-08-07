@@ -3,6 +3,7 @@ const log = require('../../logger')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)
+
   if(strMap){
     for (let [k, v] of strMap) {
       obj[k] = v
