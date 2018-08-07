@@ -15,3 +15,11 @@ test('strMapToObj should convert a Map to a standard JS object', async t => {
   t.end()
 })
 
+test('strMapToObj should return an empty object if the map is null', async t =>{
+  const strMapToObj = course.__get__('strMapToObj')
+  const result = await strMapToObj(null)
+
+  t.deepEqual(result, {})
+  t.end()
+})
+
