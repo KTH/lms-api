@@ -32,6 +32,8 @@ module.exports = {
   async allCourses (req, res) {
     try {
       const coursesMap = await simpleCache.courses
+      console.log(typeof coursesMap)
+      console.log(coursesMap)
       res.json(strMapToObj(coursesMap))
     } catch (e) {
       log.error('An error occured:', e)
