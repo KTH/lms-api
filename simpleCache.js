@@ -9,7 +9,7 @@ const humanInterval = require('human-interval')
 
 const coursesMap = new Map()
 
-function cacheCourses () {
+function listCourses () {
   return canvasApi.listCourses().then(courses => {
     coursesMap.clear()
     courses.filter(course => course.sis_course_id).forEach(course => coursesMap.set(course.sis_course_id, course))
@@ -25,11 +25,11 @@ Refresh cache periodically
 
 module.exports = {
   start(){
-      setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
+      setInterval(() => cachedCourses = listCourses(), humanInterval('15 minutes'))
   },
   get courses () {
     if (!cachedCourses) {
-      cachedCourses = cacheCourses()
+      cachedCourses = listCourses()
     }
     return cachedCourses
   }
