@@ -24,3 +24,15 @@ test(`the getter for courses
     
     t.end()
   })
+
+  test(`the function cacheCourses 
+            should fetch courses from Canvas
+            and only include those courses that has a sis_course_id`, async t =>{
+    const cacheCourses = simpleCache.__get__('cacheCourses')
+    simpleCache.__get__('canvasApi').listCourses = ()=> Promise.resolve([{}, {sis_course_id:'123'}])
+    const result = await cacheCourses()
+    
+    t.equal(result.size, 1)
+    t.ok(result.get('123'))
+    t.end()
+  })
