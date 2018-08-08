@@ -11,10 +11,10 @@ const coursesMap = new Map()
 
 async function cacheCourses () {
   try {
-   const courses = await canvasApi.listCourses()
-    courses.filter(course => course.sis_course_id).forEach(course => {coursesMap.set(course.sis_course_id, course)})
+    const courses = await canvasApi.listCourses()
+    courses.filter(course => course.sis_course_id).forEach(course => { coursesMap.set(course.sis_course_id, course) })
   } catch (error) {
-    logger.error('Couldnt fetch courses from Canvas. Using old, previously cached courses')     
+    logger.error('Couldnt fetch courses from Canvas. Using old, previously cached courses')
   }
   return coursesMap
 }
@@ -27,7 +27,7 @@ Refresh cache periodically
 
 module.exports = {
   start () {
-    setInterval(() => cachedCourses = cacheCourses(), humanInterval('15 minutes'))
+    setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
   },
   get courses () {
     if (!cachedCourses) {

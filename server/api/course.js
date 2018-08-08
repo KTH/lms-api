@@ -17,8 +17,8 @@ module.exports = {
     try {
       const coursesMap = await simpleCache.courses
       const courses = []
-      for (let [k, v] of coursesMap) {
-        courses.push(v)
+      for (let [, value] of coursesMap) {
+        courses.push(value)
       }
       const result = courses.filter(course => course.course_code === req.params.courseCode)
       if (result.length === 0) {
