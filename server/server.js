@@ -2,7 +2,7 @@
 const server = require('kth-node-server')
 const api = require('./api')
 const systemRoutes = require('./systemroutes')
-const log = require('../logger');
+const log = require('../logger')
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {

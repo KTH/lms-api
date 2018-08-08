@@ -1,7 +1,6 @@
 
 const express = require('express')
 const router = express.Router()
-const config = require('../config/serverSettings')
 const rp = require('request-promise')
 
 const version = require('../config/version')

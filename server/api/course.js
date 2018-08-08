@@ -4,7 +4,7 @@ const log = require('../../logger')
 function strMapToObj (strMap) {
   let obj = Object.create(null)
 
-  if(strMap){
+  if (strMap) {
     for (let [k, v] of strMap) {
       obj[k] = v
     }
@@ -14,7 +14,6 @@ function strMapToObj (strMap) {
 
 module.exports = {
   async course (req, res) {
-
     try {
       const coursesMap = await simpleCache.courses
       const courses = []
