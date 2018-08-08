@@ -11,7 +11,6 @@ const coursesMap = new Map()
 
 function cacheCourses () {
   return canvasApi.listCourses().then(courses => {
-    console.log('caching courses'.rainbow)
     coursesMap.clear()
     courses.filter(course => course.sis_course_id).forEach(course => coursesMap.set(course.sis_course_id, course))
     return coursesMap
