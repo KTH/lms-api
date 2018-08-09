@@ -6,7 +6,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
-    "test": "echo \"ok\"",
+    "test": "tape \"test/unit/**/*.js\" | tap-spec",
     "test:integration": "cross-env NODE_ENV=development tape \"test/integration/**/*.js\" | tap-spec",
     "start": "cross-env NODE_ENV=development nodemon app.js"
   },
@@ -22,6 +22,7 @@
     "cross-env": "^5.1.6",
     "nodemon": "^1.17.5",
     "proxyquire": "^2.0.1",
+    "rewire": "^4.0.1",
     "should": "^13.2.1",
     "sinon": "^5.0.10",
     "standard": "^11.0.1",

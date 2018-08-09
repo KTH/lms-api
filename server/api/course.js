@@ -3,20 +3,22 @@ const log = require('../../logger')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)
-  for (let [k, v] of strMap) {
-    obj[k] = v
+
+  if (strMap) {
+    for (let [k, v] of strMap) {
+      obj[k] = v
+    }
   }
   return obj
 }
 
 module.exports = {
   async course (req, res) {
-
     try {
       const coursesMap = await simpleCache.courses
       const courses = []
-      for (let [k, v] of coursesMap) {
-        courses.push(v)
+      for (let [, value] of coursesMap) {
+        courses.push(value)
       }
       const result = courses.filter(course => course.course_code === req.params.courseCode)
       if (result.length === 0) {
