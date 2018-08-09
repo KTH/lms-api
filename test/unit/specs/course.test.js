@@ -23,6 +23,7 @@ test('the function strMapToObj should return an empty object if the map is null'
   t.end()
 })
 
+// TODO: replace this test with an integration test without mocks/stubs
 test('the function allCourses should render the cached courses', async t => {
   const res = {json: sinon.stub()}
 
