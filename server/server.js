@@ -3,6 +3,7 @@ const server = require('kth-node-server')
 const api = require('./api')
 const systemRoutes = require('./systemroutes')
 const log = require('../logger')
+const simpleCache = require('../simpleCache')
 // Load .env file in development mode
 const nodeEnv = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase()
 if (nodeEnv === 'development' || nodeEnv === 'dev' || !nodeEnv) {
@@ -19,8 +20,9 @@ server.use('/api/lms-api/api/', api)
 
 async function preloadCache () {
   log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
+  simpleCache.start()
   try {
-    await require('../simpleCache').courses
+    await simpleCache.courses
     log.info('courses is preloaded')
   } catch (e) {
     log.error('An error occured.', e)
