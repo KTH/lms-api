@@ -3,28 +3,27 @@ const logger = require('../logger')
 const humanInterval = require('human-interval')
 
 const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
-const coursesMap = new Map()
 
-let cachedCourses
+let cachedCourses = new Map()
 
 async function cacheCourses () {
+  const coursesMap = new Map()
   try {
     const courses = await canvasApi.listCourses()
-    coursesMap.clear()
     courses.filter(course => course.sis_course_id).forEach(course => { coursesMap.set(course.sis_course_id, course) })
   } catch (error) {
     logger.error('Couldnt fetch courses from Canvas. Using old, previously cached courses')
   }
-  return coursesMap
+  return coursesMap.size > 0 ? coursesMap : cachedCourses
 }
 
 module.exports = {
   start () {
     setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
   },
-  getCourses () {
+  async getCourses () {
     if (!cachedCourses) {
-      cachedCourses = cacheCourses()
+      cachedCourses = await cacheCourses()
     }
     return cachedCourses
   }
