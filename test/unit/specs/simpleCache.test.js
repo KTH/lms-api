@@ -1,6 +1,6 @@
 const test = require('tape')
 const rewire = require('rewire')
-const simpleCache = rewire('../../../simpleCache')
+const simpleCache = rewire('../../../server/simpleCache')
 const sinon = require('sinon')
 
 test(`the getter for courses 

@@ -1,6 +1,6 @@
 const test = require('tape')
 const rewire = require('rewire')
-const course = rewire('../../../server/api/course')
+const course = rewire('../../../server/api')
 const sinon = require('sinon')
 
 test('the function strMapToObj should convert a Map to a standard JS object', async t => {
@@ -25,6 +25,7 @@ test('the function strMapToObj should return an empty object if the map is null'
 
 // TODO: replace this test with an integration test without mocks/stubs
 test('the function allCourses should render the cached courses', async t => {
+  const getAllCourses = course.__get__('getAllCourses')
   const res = {json: sinon.stub()}
 
   // Mock the calls to Canvas, we have one cached course
@@ -32,7 +33,7 @@ test('the function allCourses should render the cached courses', async t => {
     ['SF1624', {}]
   ]))})
 
-  await course.allCourses(null, res)
+  await getAllCourses(null, res)
 
   t.ok(res.json.calledWith({'SF1624': {}}))
   t.end()
