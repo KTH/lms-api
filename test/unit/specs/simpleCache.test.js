@@ -14,7 +14,7 @@ test(`the getter for courses
   simpleCache.__set__('cachedCourses', null)
 
   // Invoke the getter
-  const result = await simpleCache.courses
+  const result = await simpleCache.getCourses()
 
   // The map should contain the course from Canvas
   t.ok(result.get(course.sis_course_id))

@@ -11,7 +11,7 @@ async function preloadCache () {
   log.info('::::::::::::::: preload the cache with all courses in canvas :::::::::::::::::')
   simpleCache.start()
   try {
-    await simpleCache.courses
+    await simpleCache.getCourses()
     log.info('courses is preloaded')
   } catch (e) {
     log.error('An error occured.', e)

@@ -1,13 +1,11 @@
-/**
- * Created by elenara on 01/07/16.
- */
 const CanvasApi = require('kth-canvas-api')
 const logger = require('../logger')
-
-const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
 const humanInterval = require('human-interval')
 
+const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
 const coursesMap = new Map()
+
+let cachedCourses
 
 async function cacheCourses () {
   try {
@@ -20,17 +18,11 @@ async function cacheCourses () {
   return coursesMap
 }
 
-let cachedCourses
-
-/*
-Refresh cache periodically
-*/
-
 module.exports = {
   start () {
     setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
   },
-  get courses () {
+  getCourses () {
     if (!cachedCourses) {
       cachedCourses = cacheCourses()
     }
