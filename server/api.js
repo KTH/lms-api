@@ -37,7 +37,7 @@ async function getCourse (req, res) {
 
 async function getAllCourses (req, res) {
   try {
-    const coursesMap = await simpleCache.courses
+    const coursesMap = await simpleCache.getCourses()
     res.json(strMapToObj(coursesMap))
   } catch (e) {
     log.error('An error occured:', e)
