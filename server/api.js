@@ -2,8 +2,8 @@
 
 const express = require('express')
 const router = express.Router()
-const simpleCache = require('../../simpleCache')
-const log = require('../../logger')
+const simpleCache = require('../simpleCache')
+const log = require('../logger')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)
