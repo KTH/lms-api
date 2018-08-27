@@ -30,7 +30,7 @@ module.exports = {
   start () {
     setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
   },
-  get courses () {
+  getCourses () {
     if (!cachedCourses) {
       cachedCourses = cacheCourses()
     }
