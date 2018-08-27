@@ -21,6 +21,7 @@ module.exports = {
   start () {
     setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
   },
+  // TODO: remove the async and await since it changes the funtctionality
   async getCourses () {
     if (!cachedCourses) {
       cachedCourses = await cacheCourses()
