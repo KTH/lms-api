@@ -1,6 +1,7 @@
 require('dotenv').config()
 const test = require('tape')
-const course = require('../../../server/api/course')
+const rewire = require('rewire')
+const api = rewire('../../../server/api')
 const sinon = require('sinon')
 
 test('should cache course 85, Canvas at KTH', async t => {
@@ -14,6 +15,7 @@ test('should cache course 85, Canvas at KTH', async t => {
     }
   }
 
-  await course.allCourses(req, resMock)
+  const getAllCourses = api.__get__('getAllCourses')
 
+  await getAllCourses(req, resMock)
 })
