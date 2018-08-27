@@ -11,7 +11,7 @@ test(`the getter for courses
   simpleCache.__get__('canvasApi').listCourses = () => Promise.resolve([course])
 
   // make sure that courses arent fetched yet
-  simpleCache.__set__('cachedCourses', null)
+  simpleCache.__set__('cache', null)
 
   // Invoke the getter
   const result = await simpleCache.getCourses()
@@ -26,10 +26,10 @@ test(`the getter for courses
 test(`the function cacheCourses 
             should fetch courses from Canvas
             and only include those courses that has a sis_course_id`, async t => {
-  const cacheCourses = simpleCache.__get__('cacheCourses')
+  const renewCache = simpleCache.__get__('renewCache')
   simpleCache.__set__('coursesMap', new Map())
   simpleCache.__get__('canvasApi').listCourses = () => Promise.resolve([{}, {sis_course_id: '123'}])
-  const result = await cacheCourses()
+  const result = await renewCache()
 
   t.equal(result.size, 1)
   t.ok(result.get('123'))
@@ -38,13 +38,13 @@ test(`the function cacheCourses
 
 test(`the function cacheCourses 
             should keep the previously cached courses if the requests to Canvas fails`, async t => {
-  const cacheCourses = simpleCache.__get__('cacheCourses')
+  const renewCache = simpleCache.__get__('renewCache')
 
   const coursesBeforeCaching = simpleCache.__get__('coursesMap')
   // Mock canvasApi.listCourses to throw an error
   simpleCache.__get__('canvasApi').listCourses = sinon.stub().throws(new Error())
 
-  const result = await cacheCourses()
+  const result = await renewCache()
   t.is(result, coursesBeforeCaching)
   t.end()
 })
