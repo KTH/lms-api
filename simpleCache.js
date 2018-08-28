@@ -7,9 +7,10 @@ const logger = require('./logger')
 const canvasApi = new CanvasApi(process.env.CANVAS_API_URL, process.env.CANVAS_API_KEY)
 const humanInterval = require('human-interval')
 
+let cache
 const coursesMap = new Map()
 
-async function cacheCourses () {
+async function renewCache () {
   try {
     const courses = await canvasApi.listCourses()
     coursesMap.clear()
@@ -20,20 +21,18 @@ async function cacheCourses () {
   return coursesMap
 }
 
-let cachedCourses
-
 /*
 Refresh cache periodically
 */
 
 module.exports = {
   start () {
-    setInterval(() => { cachedCourses = cacheCourses() }, humanInterval('15 minutes'))
+    setInterval(() => { cache = renewCache() }, humanInterval('15 minutes'))
   },
-  get courses () {
-    if (!cachedCourses) {
-      cachedCourses = cacheCourses()
+  getCourses () {
+    if (!cache) {
+      cache = renewCache()
     }
-    return cachedCourses
+    return cache
   }
 }
