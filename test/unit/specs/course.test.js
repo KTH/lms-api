@@ -29,7 +29,7 @@ test('the function allCourses should render the cached courses', async t => {
   const getAllCourses = api.__get__('getAllCourses')
 
   // Mock the calls to Canvas, we have one cached course
-  api.__set__('simpleCache', {courses: Promise.resolve(new Map([
+  api.__set__('simpleCache', {getCourses: () => Promise.resolve(new Map([
     ['SF1624', {}]
   ]))})
 
