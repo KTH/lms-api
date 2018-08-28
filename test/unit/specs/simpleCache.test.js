@@ -1,6 +1,6 @@
 const test = require('tape')
 const rewire = require('rewire')
-const simpleCache = rewire('../../../simpleCache')
+const simpleCache = rewire('../../../server/simpleCache')
 const sinon = require('sinon')
 
 test(`the getter for courses 
@@ -14,7 +14,7 @@ test(`the getter for courses
   simpleCache.__set__('cachedCourses', null)
 
   // Invoke the getter
-  const result = await simpleCache.courses
+  const result = await simpleCache.getCourses()
 
   // The map should contain the course from Canvas
   t.ok(result.get(course.sis_course_id))
@@ -27,7 +27,6 @@ test(`the function cacheCourses
             should fetch courses from Canvas
             and only include those courses that has a sis_course_id`, async t => {
   const cacheCourses = simpleCache.__get__('cacheCourses')
-  simpleCache.__set__('coursesMap', new Map())
   simpleCache.__get__('canvasApi').listCourses = () => Promise.resolve([{}, {sis_course_id: '123'}])
   const result = await cacheCourses()
 
@@ -40,7 +39,7 @@ test(`the function cacheCourses
             should keep the previously cached courses if the requests to Canvas fails`, async t => {
   const cacheCourses = simpleCache.__get__('cacheCourses')
 
-  const coursesBeforeCaching = simpleCache.__get__('coursesMap')
+  const coursesBeforeCaching = simpleCache.__get__('cachedCourses')
   // Mock canvasApi.listCourses to throw an error
   simpleCache.__get__('canvasApi').listCourses = sinon.stub().throws(new Error())
 
