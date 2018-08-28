@@ -21,7 +21,6 @@ async function renewCache () {
   return coursesMap
 }
 
-
 /*
 Refresh cache periodically
 */
