@@ -13,7 +13,6 @@ test(`the getter for courses
   // make sure that courses arent fetched yet
   simpleCache.__set__('cache', null)
 
-  // Invoke the getter
   const result = await simpleCache.getCourses()
 
   // The map should contain the course from Canvas
