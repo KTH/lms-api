@@ -1,21 +1,19 @@
-FROM node:8.1-wheezy
-
-MAINTAINER "#team-e-larande""
+FROM kthse/kth-nodejs-api:2.4
 
 COPY ["package.json", "package.json"]
-RUN npm install --production --no-optional
-
-# Copy files used by Gulp.
 COPY ["config", "config"]
-COPY ["package.json", "package.json"]
 
-# Copy source files, so changes does not trigger gulp.
+# Source files in root
 COPY ["simpleCache.js", "simpleCache.js"]
 COPY ["app.js", "app.js"]
 COPY ["swagger.json", "swagger.json"]
-COPY ["server", "server"]
 COPY ["logger.js", "logger.js"]
+
+# Source directories
+COPY ["server", "server"]
+
+RUN npm install --production --no-optional
 
 EXPOSE 3001
 
-ENTRYPOINT ["node", "app.js"]
+CMD ["node", "app.js"]
