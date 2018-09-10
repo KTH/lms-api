@@ -7,7 +7,6 @@ COPY ["package-lock.json", "package-lock.json"]
 # Source files in root
 COPY ["simpleCache.js", "simpleCache.js"]
 COPY ["app.js", "app.js"]
-COPY ["swagger.json", "swagger.json"]
 COPY ["logger.js", "logger.js"]
 
 # Source directories
