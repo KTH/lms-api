@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 const simpleCache = require('../simpleCache')
 const log = require('../logger')
+const {getUserCourses} = require('../listUserCourses')
 
 function strMapToObj (strMap) {
   let obj = Object.create(null)
@@ -47,4 +48,5 @@ async function getAllCourses (req, res) {
 
 router.get('/courses', getAllCourses)
 router.get('/courses/:courseCode', getCourse)
+router.get('/user-courses/:userKthId', getUserCourses)
 module.exports = router
