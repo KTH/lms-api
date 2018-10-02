@@ -26,7 +26,7 @@ services:
     # This example runs test in package.json which is
     # part of the kth-azure-app image.
     tty: true
-    command: npm run test:integration
+    command: npm run test:docker-integration
     environment:
       - CANVAS_API_URL
       - CANVAS_API_KEY
