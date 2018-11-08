@@ -13,22 +13,22 @@
   },
   "dependencies": {
     "bunyan": "^1.8.12",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
     "human-interval": "^0.1.6",
-    "kth-canvas-api": "^0.15.5",
+    "kth-canvas-api": "^0.15.6",
     "kth-node-server": "^3.1.1"
   },
   "devDependencies": {
-    "cross-env": "^5.1.6",
-    "nodemon": "^1.17.5",
-    "proxyquire": "^2.0.1",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.6",
+    "proxyquire": "^2.1.0",
     "rewire": "^4.0.1",
-    "should": "^13.2.1",
-    "sinon": "^5.0.10",
+    "should": "^13.2.3",
+    "sinon": "^5.1.1",
     "standard": "^11.0.1",
-    "tap-spec": "^4.1.2",
-    "tape": "^4.9.0"
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
   },
   "engines": {}
 }
