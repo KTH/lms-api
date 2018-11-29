@@ -12,7 +12,7 @@ COPY ["logger.js", "logger.js"]
 # Source directories
 COPY ["server", "server"]
 
-RUN npm ci
+RUN npm install --production --no-optional
 
 EXPOSE 3001
 
