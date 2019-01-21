@@ -5,7 +5,6 @@ COPY ["package.json", "package.json"]
 COPY ["package-lock.json", "package-lock.json"]
 
 # Source files in root
-COPY ["simpleCache.js", "simpleCache.js"]
 COPY ["app.js", "app.js"]
 COPY ["logger.js", "logger.js"]
 
