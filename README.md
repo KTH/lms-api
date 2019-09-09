@@ -1,4 +1,7 @@
 # lms-api
+
+## DEPRECATED. This project is no longer maintained
+
 This is just a tiny api that acts as a cache before Canvas.
 
 It has two routes:
